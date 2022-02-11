@@ -1,6 +1,8 @@
 package com.example.notaneitor.controllers;
 
 import com.example.notaneitor.entities.Mark;
+import com.example.notaneitor.services.MarksService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -8,9 +10,12 @@ import javax.websocket.server.PathParam;
 @RestController
 public class MarksController {
 
+    @Autowired //Inyectar el servicio
+    private MarksService marksService;
+
     @RequestMapping("/mark/list")
     public String getList() {
-        return "Getting List";
+        return marksService.getMarks().toString();
     }
 
     /**
@@ -27,20 +32,21 @@ public class MarksController {
 
     @RequestMapping(value = "/mark/add", method = RequestMethod.POST)
     public String setMark(@ModelAttribute Mark mark) {
-        return "added: " + mark.getDescription() +
-                " with score : " + mark.getScore() +
-                " id: " + mark.getId();
+        marksService.addMark(mark);
+        return "Nota añadida";
     }
 
-    //  @RequestMapping("/mark/details")
-    //   public String getDetail(@RequestParam Long id) {
-    //       return "Getting Details => " + id ;
-//    }
 
 
     @RequestMapping("/mark/details/{id}")
     public String getDetails(@PathVariable Long id) {
-        return "Getting Details => " + id;
+        return marksService.getMark(id).toString();
+    }
+
+    @RequestMapping("/mark/delete/{id}")
+    public String deleteMark(@PathVariable Long id){
+        marksService.deleteMark(id);
+        return "Calificacion " + id + "borrada";
     }
 
 
