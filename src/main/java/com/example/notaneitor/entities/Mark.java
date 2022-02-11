@@ -1,5 +1,8 @@
 package com.example.notaneitor.entities;
 
+import javax.persistence.*;
+
+@Entity
 public class Mark {
 
     public Mark() {
@@ -15,7 +18,8 @@ public class Mark {
     public String toString() {
         return "Mark{" + "id=" + id + ", description='" + description + '\'' + ", score=" + score + '}';
     }
-
+    @Id
+    @GeneratedValue
     private Long id;
     private String description;
     private Double score;
