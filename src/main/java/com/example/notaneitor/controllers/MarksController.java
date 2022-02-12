@@ -35,7 +35,7 @@ public class MarksController {
 
     @RequestMapping(value = "/mark/add")
     public String getMark() {
-        System.out.println("ENTRAAAAAAAAAAAAAAA");
+
         return "mark/add";
     }
 
