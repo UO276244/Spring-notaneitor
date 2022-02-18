@@ -20,6 +20,7 @@ public class Mark {
     public String toString() {
         return "Mark{" + "id=" + id + ", description='" + description + '\'' + ", score=" + score + '}';
     }
+
     @Id
     @GeneratedValue
     private Long id;
