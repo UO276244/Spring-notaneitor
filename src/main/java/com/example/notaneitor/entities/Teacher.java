@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 public class Teacher {
 
     @Id
+    @GeneratedValue
+    private Long id;
     private String dni;
     private String nombre;
     private String apellidos;
@@ -57,10 +59,17 @@ public class Teacher {
     }
 
 
+    public Long getId(){
+        return this.id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
 
     @Override
     public String toString() {
-        return "Teacher{" +  " dni='" + dni + '\''
+        return "Teacher{ id = " + id +  ", dni='" + dni + '\''
                 + ", nombre =" + nombre + ", apellidos = " + apellidos + ", categoria = " + categoria + '}';
     }
 }

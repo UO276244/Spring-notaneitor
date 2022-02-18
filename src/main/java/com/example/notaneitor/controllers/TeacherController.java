@@ -37,34 +37,30 @@ public class TeacherController {
         return "Added: " + teacher.toString();
     }
 
-    @RequestMapping("/teacher/details/{dni}")
-    public String getDetail(@PathVariable String dni) {
-        Teacher t = teacherService.getTeacher(dni);
+    @RequestMapping("/teacher/details/{id}")
+    public String getDetail(@PathVariable Long id) {
+        Teacher t = teacherService.getTeacher(id);
 
         if(t == null){
-            return "No existe profesor con dni " + dni;
+            return "No existe profesor con id " + id;
         }else{
             return t.toString();
         }
     }
 
-    @RequestMapping("/teacher/delete/{dni}")
-    public String deleteTeacher(@PathVariable String dni) {
-        if(teacherService.deleteTeacher(dni)){
-            return "Deleted dni: " + dni;
-        }else{
-            return "No existe el dni";
-        }
+    @RequestMapping("/teacher/delete/{id}")
+    public String deleteTeacher(@PathVariable Long id) {
+            teacherService.deleteTeacher(id);
+            return "Deleted id: " + id;
+
 
     }
 
-    @RequestMapping(value = "/teacher/edit/{dni}", method = RequestMethod.POST)
-    public String setEdit(@PathVariable String dni ,@ModelAttribute Teacher teacher) {
+    @RequestMapping(value = "/teacher/edit/{id}", method = RequestMethod.POST)
+    public String setEdit(@PathVariable Long id ,@ModelAttribute Teacher teacher) {
 
-        teacher.setDni(dni);
-        teacherService.deleteTeacher(dni);
+        teacher.setId(id);
         teacherService.addTeacher(teacher);
-
         return "Editado: " +teacher.toString();
 
     }
