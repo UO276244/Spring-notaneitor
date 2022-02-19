@@ -1,4 +1,4 @@
-package com.example.notaneitor;
+package com.uniovi.notaneitor;
 
 import java.util.Locale;
 

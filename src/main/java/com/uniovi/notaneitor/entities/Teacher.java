@@ -1,4 +1,4 @@
-package com.example.notaneitor.entities;
+package com.uniovi.notaneitor.entities;
 
 
 import javax.persistence.Entity;

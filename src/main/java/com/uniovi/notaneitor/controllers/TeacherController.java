@@ -1,10 +1,8 @@
-package com.example.notaneitor.controllers;
+package com.uniovi.notaneitor.controllers;
 
-import com.example.notaneitor.entities.Mark;
-import com.example.notaneitor.entities.Teacher;
-import com.example.notaneitor.services.TeacherService;
+import com.uniovi.notaneitor.entities.Teacher;
+import com.uniovi.notaneitor.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

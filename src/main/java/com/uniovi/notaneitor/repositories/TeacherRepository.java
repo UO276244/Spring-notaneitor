@@ -1,6 +1,6 @@
-package com.example.notaneitor.repositories;
+package com.uniovi.notaneitor.repositories;
 
-import com.example.notaneitor.entities.Teacher;
+import com.uniovi.notaneitor.entities.Teacher;
 import org.springframework.data.repository.CrudRepository;
 
 public interface TeacherRepository extends CrudRepository<Teacher,Long> {

@@ -1,7 +1,7 @@
-package com.example.notaneitor.services;
+package com.uniovi.notaneitor.services;
 
-import com.example.notaneitor.entities.Mark;
-import com.example.notaneitor.repositories.MarksRepository;
+import com.uniovi.notaneitor.entities.Mark;
+import com.uniovi.notaneitor.repositories.MarksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

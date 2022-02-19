@@ -1,7 +1,8 @@
-package com.example.notaneitor.controllers;
+package com.uniovi.notaneitor.controllers;
 
-import com.example.notaneitor.entities.Mark;
-import com.example.notaneitor.services.MarksService;
+import com.uniovi.notaneitor.entities.Mark;
+import com.uniovi.notaneitor.services.MarksService;
+import com.uniovi.notaneitor.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,10 @@ public class MarksController {
 
     @Autowired //Inyectar el servicio
     private MarksService marksService;
+
+    @Autowired
+    private UsersService usersService;
+
 
     @RequestMapping("/mark/list")
     public String getList(Model model) {
@@ -35,8 +40,8 @@ public class MarksController {
      **/
 
     @RequestMapping(value = "/mark/add")
-    public String getMark() {
-
+    public String getMark(Model model) {
+        model.addAttribute("usersList", usersService.getUsers());
         return "mark/add";
     }
 
@@ -63,13 +68,18 @@ public class MarksController {
     @RequestMapping(value = "/mark/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
         model.addAttribute("mark", marksService.getMark(id));
+
+        model.addAttribute("usersList", usersService.getUsers());
         return "mark/edit";
     }
 
     @RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
     public String setEdit(@ModelAttribute Mark mark, @PathVariable Long id) {
-        mark.setId(id);
-        marksService.addMark(mark);
+        Mark originalMark = marksService.getMark(id);
+        // modificar solo score y description
+        originalMark.setScore(mark.getScore());
+        originalMark.setDescription(mark.getDescription());
+        marksService.addMark(originalMark);
         return "redirect:/mark/details/" + id;
     }
 

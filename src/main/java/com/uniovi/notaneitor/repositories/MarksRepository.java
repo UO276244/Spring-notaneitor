@@ -1,6 +1,6 @@
-package com.example.notaneitor.repositories;
+package com.uniovi.notaneitor.repositories;
 
-import com.example.notaneitor.entities.Mark;
+import com.uniovi.notaneitor.entities.Mark;
 import org.springframework.data.repository.CrudRepository;
 
 /**
