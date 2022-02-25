@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.uniovi.notaneitor.entities.*;
 import com.uniovi.notaneitor.services.UsersService;
@@ -83,7 +84,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signup(@ModelAttribute("user") User user, BindingResult result) {
+    public String signup(@Validated User user, BindingResult result) {
 
         signUpFormValidator.validate(user,result);
         if(result.hasErrors()){
