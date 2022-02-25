@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 
 @Configuration
@@ -32,12 +33,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean public SpringSecurityDialect securityDialect() { return new SpringSecurityDialect(); }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/images/**", "/script/**", "/", "/signup", "/login/**")
-                .permitAll()
+                .antMatchers("/css/**", "/images/**", "/script/**", "/", "/signup", "/login/**").permitAll()
+                .antMatchers("/mark/add").hasAuthority("ROLE_PROFESSOR")
+                .antMatchers("/mark/edit/*").hasAuthority("ROLE_PROFESSOR")
+                .antMatchers("/mark/delete/*").hasAuthority("ROLE_PROFESSOR")
+                .antMatchers("/mark/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_PROFESSOR", "ROLE_ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ROLE_ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -50,8 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-   /** @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    /** @Autowired public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }**/
 }

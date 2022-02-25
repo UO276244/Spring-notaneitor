@@ -27,33 +27,38 @@ public class SignUpFormValidator implements Validator {
         if (user.getDni().length() != 9) {
 
             errors.rejectValue("dni", "Error.signup.dni.length");
-            System.out.println("FALLAAAA 1");
+
         }
         if( user.getDni().length() == 9 && !Pattern.matches("[a-zA-Z]", ""+user.getDni().charAt(8))){
             errors.rejectValue("dni", "Error.signup.dni.format");
-            System.out.println("FALLAAAA 2");
+
         }
 
         if (usersService.getUserByDni(user.getDni()) != null) {
             errors.rejectValue("dni", "Error.signup.dni.duplicate");
-            System.out.println("FALLAAAA 3");
+
         }
         if (user.getName().length() < 5 || user.getName().length() > 24) {
             errors.rejectValue("name", "Error.signup.name.length");
-            System.out.println("FALLAAAA 4");
+
         }
         if (user.getLastName().length() < 5 || user.getLastName().length() > 24) {
             errors.rejectValue("lastName", "Error.signup.lastName.length");
-            System.out.println("FALLAAAA 5");
+
         }
         if (user.getPassword().length() < 5 || user.getPassword().length() > 24) {
             errors.rejectValue("password", "Error.signup.password.length");
-            System.out.println("FALLAAAA 6");
+
 
         }
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Error.signup.passwordConfirm.coincidence");
-            System.out.println("FALLAAAA 7");
+
+        }
+
+        if(usersService.getUserByDni(user.getDni()) != null){
+            errors.rejectValue("dni", "Error.signup.dni.repeated");
+
         }
     }
 }
