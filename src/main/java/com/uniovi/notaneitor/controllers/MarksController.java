@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class MarksController {
 
@@ -28,8 +32,17 @@ public class MarksController {
     @Autowired
     private MarkValidator markValidator;
 
+    @Autowired
+    private HttpSession httpSession;
+
+
     @RequestMapping("/mark/list")
     public String getList(Model model) {
+        Set<Mark> consultedList = (Set<Mark>) httpSession.getAttribute("consultedList");
+        if (consultedList == null) {
+            consultedList = new HashSet<Mark>();
+        }
+        model.addAttribute("consultedList", consultedList);
         model.addAttribute("markList", marksService.getMarks());
         return "mark/list";
     }
@@ -54,13 +67,14 @@ public class MarksController {
     }
 
 
-
     @RequestMapping(value = "/mark/add", method = RequestMethod.POST)
-    public String setMark(@Validated Mark mark, BindingResult result) {
+    public String setMark(@Validated Mark mark, BindingResult result, Model model) {
 
-        markValidator.validate(mark,result);
-        if(result.hasErrors()){
-            return "redirect:/mark/add";
+        markValidator.validate(mark, result);
+        if (result.hasErrors()) {
+            model.addAttribute("usersList", usersService.getUsers());
+
+            return "/mark/add";
         }
 
         marksService.addMark(mark);
@@ -92,8 +106,8 @@ public class MarksController {
     @RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
     public String setEdit(@Validated Mark mark, @PathVariable Long id,
                           BindingResult result) {
-        markValidator.validate(mark,result);
-        if(result.hasErrors()){
+        markValidator.validate(mark, result);
+        if (result.hasErrors()) {
             return "/mark/edit";
         }
 
