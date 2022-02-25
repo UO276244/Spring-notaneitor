@@ -17,6 +17,7 @@ public class User {
     private String name;
     private String lastName;
     private String password;
+    private String role;
 
     @Transient
     private String passwordConfirm;
@@ -93,6 +94,14 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 
