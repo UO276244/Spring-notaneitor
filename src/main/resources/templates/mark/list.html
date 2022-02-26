@@ -19,13 +19,16 @@
 
 
     <p>Las notas que actualmente figuran en el sistema son las siguientes:</p>
-
-    <button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
-    <script>
-        $("#updateButton").click(function () {
-            $("#tableMarks").load('/mark/list/update');
-        });
-    </script>
+    <button type="button" id="updateButton" class="btn btn-primary">Actualizar</button>
+    <script th:inline="javascript"> /*<![CDATA[*/
+    $("#updateButton").click(function () {
+        var numberPage = [[${param.page}]];
+        var urlUpdate = '/mark/list/update';
+        if (numberPage != null) {
+            urlUpdate += "?page=" + numberPage[0];
+        }
+        $("#tableMarks").load(urlUpdate);
+    }); /*]]>*/ </script>
 
     <div class="table-responsive">
 
@@ -56,7 +59,12 @@
                             <script th:inline="javascript"> /*<![CDATA[*/
                             $("#resendButton" + "[[${mark.id}]]").click(function () {
                                 $.get("/mark/[[${mark.id}]]/noresend", function (data) {
-                                    $("#tableMarks").load('/mark/list/update');
+                                    var numberPage = [[${param.page}]];
+                                    var urlUpdate = '/mark/list/update';
+                                    if (numberPage != null) {
+                                        urlUpdate += "?page=" + numberPage[0];
+                                    }
+                                    $("#tableMarks").load(urlUpdate);
                                 });
                             }); /*]]>*/
                             </script>
@@ -69,7 +77,12 @@
                             <script th:inline="javascript"> /*<![CDATA[*/
                             $("#noresendButton" + "[[${mark.id}]]").click(function () {
                                 $.get("/mark/[[${mark.id}]]/resend", function (data) {
-                                    $("#tableMarks").load('/mark/list/update');
+                                    var numberPage = [[${param.page}]];
+                                    var urlUpdate = '/mark/list/update';
+                                    if (numberPage != null) {
+                                        urlUpdate += "?page=" + numberPage[0];
+                                    }
+                                    $("#tableMarks").load(urlUpdate);
                                 });
                             }); /*]]>*/ </script>
                         </div>
@@ -86,6 +99,11 @@
 </div>
 
 
-</body>
+</div>
+<footer th:replace="fragments/pagination"/>
+</div>
 <footer th:replace="fragments/footer"/>
+
+
+</body>
 </html>
