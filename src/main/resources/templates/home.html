@@ -60,7 +60,7 @@
                     </div>
 
                 </td>
-                <td><a sec:authorize="hasRole('PROFESSOR')"
+                <td><a sec:authorize="hasRole('ROLE_PROFESSOR')"
                        th:href="${'/mark/delete/' + mark.id}">eliminar</a>
             </tr>
             </tbody>
