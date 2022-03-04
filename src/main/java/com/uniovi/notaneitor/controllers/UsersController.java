@@ -34,7 +34,7 @@ public class UsersController {
 
 
     @RequestMapping("/user/list")
-    public String getListado(Model model) {
+    public String getList(Model model) {
         model.addAttribute("usersList", usersService.getUsers());
         return "user/list";
     }

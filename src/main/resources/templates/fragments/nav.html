@@ -13,17 +13,21 @@
                                                                         id="navbarDropdown" role="button"
                                                                         data-toggle="dropdown" aria-haspopup="true"
                                                                         aria-expanded="false"> Gestión de notas </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown"><a class="dropdown-item"
-                                                                                   href="/mark/add"
-                                                                                   sec:authorize="hasRole('ROLE_PROFESSOR')">Agregar
-                        Nota</a> <a class="dropdown-item" href="/mark/list">Ver Notas</a></div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/mark/add" sec:authorize="hasRole('ROLE_PROFESSOR')">
+                            Agregar  Nota
+                        </a>
+                        <a class="dropdown-item" href="/mark/list">Ver Notas</a></div>
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')" id="users-menu" class="nav-item dropdown"><a
                         class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"> Gestión de usuarios </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown"><a class="dropdown-item"
-                                                                                   href="/user/add">Agregar usuario</a>
-                        <a class="dropdown-item" href="/user/list">Ver usuarios</a></div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" href="/user/add">Agregar usuario</a>
+                        <a class="dropdown-item" href="/user/list">Ver usuarios</a>
+                    </div>
+
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')" id="professor-menu" class="nav-item dropdown"><a
                         class="nav-link dropdown-toggle" href="#" id="profesorDropdown" role="button"
